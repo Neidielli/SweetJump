@@ -7,7 +7,7 @@ public class scriptPC : MonoBehaviour
     private Rigidbody2D rbd;
     public float vel = 5;
     public float pulo = 250;
-    public bool chao = true;
+    public bool chao = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,12 +18,14 @@ public class scriptPC : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         chao = true;
+        transform.parent = collision.transform;
     }
 
     // Quando sai do chão, o chão é falso
     private void OnCollisionExit2D(Collision2D collision)
     {
         chao = false;
+        transform.parent = null;
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class scriptPC : MonoBehaviour
 
         rbd.velocity = new Vector2(x * vel, velY);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && chao)
         {
             chao = false;
             rbd.AddForce(new Vector2(0, pulo));
