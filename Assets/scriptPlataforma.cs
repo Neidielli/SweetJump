@@ -27,5 +27,9 @@ public class scriptPlataforma : MonoBehaviour
         Vector2 posAtual = new Vector2(posX, posY);
 
         transform.position = posInicial + posAtual;
+
+        if (count >= 2 * Mathf.PI)
+            count = 2 * Mathf.PI - count;
+
     }
 }
