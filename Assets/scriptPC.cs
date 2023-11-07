@@ -10,6 +10,7 @@ public class scriptPC : MonoBehaviour
     public float pulo = 250;
     public bool chao = false;
     private bool direita = true;
+    public LayerMask mask;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +61,17 @@ public class scriptPC : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && chao)
         {
             chao = false;
+            transform.parent = null;
             rbd.AddForce(new Vector2(0, pulo));
         }
+
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position, -transform.up, 1f, mask);
+        if (hit.collider != null)
+        {
+            Destroy(hit.collider.gameObject);
+        }
+            
     }
 
 }
